@@ -1,31 +1,29 @@
-podTemplate(containers: [
-    containerTemplate(name: 'kubectl', image: 'bitnami/kubectl', ttyEnabled: true, command: 'cat'),
-  ]) {
-
-    node(POD_LABEL) {
+pipeline {
+    agent any
+    stages {
         stage('Building image') {
-            steps{
-                dir("app"){
-                    script {
+            steps {
+                git branch: 'work1', url: 'https://github.com/renato-nmoraes/kubernetes-cluster.git'
+                dir('app'){
+                    sh "ls -lar"
+                    script{
                         fullDockerImageName = "hello-world" + ":" + "1.0"
                         dockerImage = docker.build fullDockerImageName
                     }
                 }
             }
-        }
-        stage('Deploy') {
-            git url: 'https://github.com/renato-nmoraes/kubernetes-cluster.git'
-            dir("app"){
-                container('kubectl') {
-                    stage('Build a Go project') {
-                        sh """
-                        mkdir -p /go/src/github.com/hashicorp
-                        ln -s `pwd` /go/src/github.com/hashicorp/terraform
-                        cd /go/src/github.com/hashicorp/terraform && make core-dev
-                        """
+        } 
+        stage('List pods') {
+            steps{
+                dir('app/base'){
+                    withKubeConfig([credentialsId: '${CREDENTIALS}',
+                            serverUrl: 'http://localhost:8090/'
+                            ]) {
+                        sh 'ls -lar'
+                        sh 'kubectl apply -k .'
                     }
                 }
             }
-        }
+        }    
     }
 }

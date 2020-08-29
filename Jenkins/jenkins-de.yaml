@@ -12,14 +12,45 @@ spec:
       labels:
         app: jenkins
     spec:
+      serviceAccountName: jenkins
+      securityContext:
+        fsGroup: 1000
       containers:
+      - name: kubectlproxy
+        image: bitnami/kubectl:1.17.11
+        command: ["/bin/sh", "-ec", "kubectl proxy --port 8090"]
       - name: jenkins
-        image: jenkins/jenkins:lts
+        image: jenkins-docker:1.0
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
+        - containerPort: 50000
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 8080
+          initialDelaySeconds: 300
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 2
+          failureThreshold: 5
         volumeMounts:
-          - name: jenkins-home
-            mountPath: /var/jenkins_home
+        - mountPath: /var/jenkins_home
+          name: jenkins-home
+        - mountPath: /var/run/docker.sock
+          name: dockersock          
+        # resources:
+        #   limits:
+        #     cpu: 800m
+        #     memory: 3Gi
+        #   requests:
+        #     cpu: 100m
+        #     memory: 3Gi
       volumes:
-        - name: jenkins-home
-          emptyDir: {}
+      - name: jenkins-home
+        persistentVolumeClaim:
+          claimName: pvc-jenkins-home
+      - name: dockersock
+        hostPath:
+          path: /var/run/docker.sock
+          

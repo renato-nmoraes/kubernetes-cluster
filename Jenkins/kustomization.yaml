@@ -15,3 +15,7 @@ resources:
 - jenkins-service.yaml
 - jenkins-de.yaml
 - jenkins-crb.yaml
+- jenkins-cr.yaml
+- jenkins-sa.yaml
+- jenkins-role.yaml
+- jenkins-pvc.yaml
