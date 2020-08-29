@@ -1,0 +1,9 @@
+namespace: application
+commonLabels:
+  env: dev
+bases:
+- ../../base
+configMapGenerator:
+- files:
+  - application.properties
+  name: application-config
