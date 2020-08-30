@@ -13,5 +13,6 @@ namespace: application
 # List of resource files that kustomize reads, modifies
 # and emits as a YAML string
 resources:
-- app-service.yaml
+- app-svc.yaml
 - app-de.yaml
+- app-ns.yaml
