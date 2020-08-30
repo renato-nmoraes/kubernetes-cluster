@@ -7,18 +7,22 @@ Minikube Kubernetes cluster with 2 environments running NGINX application deploy
 - Linux shell to run .sh script
 
 ## Pre-installation
-1. Install Minikube according to your SO - Follow the instructions [here](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+1. Install Minikube according to your Operational System - Follow the instructions [here](https://kubernetes.io/docs/tasks/tools/install-minikube/)
 2. Start Minikube with `minikube start --driver=<DRIVE_NAME>`
-3. Check if Minikube is running with  `minikube status`
-4. Install Kubectl according to your SO - Follow the instructions [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-5. Check if Kubectl is working with `kubectl cluster-info`. More information [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/#verifying-kubectl-configuration)
+3. Run `minikube status` to check if Minikube is running correctly.
+4. Install Kubectl according to your Operational System - Follow the instructions [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+5. Run `kubectl cluster-info` to check if Kubectl is working and connected to Minikube. More information [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/#verifying-kubectl-configuration)
 5. Clone this repository
 
+## Installation
+To have a running application, it is necessary:
+1. Deploy and Setup Jenkins
+2. Deploy "Hello World" application through Jenkins
 
-## Jenkins Setup
+### Jenkins Setup
 The "Hello World" application is built and deployed through Jenkins. Everything in Jenkins (besides Kubernetes API Server credentials) is configured as code.
 
-### Build & Deploy
+#### Build & Deploy
 Run `Jenkins/jenkins-setup.sh` script and wait for it to complete. It is recommended to run it on a Linux terminal.
 Kubernetes API Server Credentials will be printed at the end.
 
@@ -47,11 +51,11 @@ To apply the K8s API Server credentials to Jenkins, follow the steps:
 4. Click in Change Password 
 5. Paste the **decoded** credentials provided before and save
 
-## Application
+### Application
 After the credentials configuration, Jenkins is ready to build and deploy the application.
 The application is a nginx image running a Hello World page.
 
-### Build & Deploy
+#### Build & Deploy
 In the Jenkins page, select the **hello-world** pipeline job.
 
 1. Click *Build with Parameters*
