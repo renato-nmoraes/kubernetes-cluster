@@ -6,13 +6,13 @@ This documentation describes how to setup and deploy a NGINX "Hello World" web p
 
 The following steps are necessary and will be described in this document:
 
-```mermaid
+
 graph TD
 A[Install Minikube] --> B[Install Kubectl]
 B --> C[Clone repository]
 C --> D[Deploy Jenkins with jenkins-setup.sh]
 D --> E[Deploy application with Jenkins]
-```
+
 
 ### Pre-installation
 Before deploying the application, some configuration is needed. You will need to:
