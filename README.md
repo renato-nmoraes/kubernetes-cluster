@@ -1,5 +1,5 @@
 # kubernetes-cluster
-Kubernetes cluster with 2 environments running NGINX application
+Minikube Kubernetes cluster with 2 environments running NGINX application deployed by Jenkins.
 
 ## Requisites
 
