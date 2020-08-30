@@ -1,0 +1,6 @@
+namespace: prd-application
+bases:
+- ../../base
+namePrefix: prd-
+patchesStrategicMerge:
+- app-svc.yaml

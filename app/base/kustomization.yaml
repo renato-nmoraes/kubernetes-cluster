@@ -1,0 +1,18 @@
+namespace: application
+
+# configMapGenerator:
+# - files:
+#   - promtail-promtail.yaml
+#   name: promtail-config
+# - files:
+#   - datasource.yaml
+#   name: loki-datasource
+# generatorOptions:
+#   disableNameSuffixHash: true
+
+# List of resource files that kustomize reads, modifies
+# and emits as a YAML string
+resources:
+- app-svc.yaml
+- app-de.yaml
+- app-ns.yaml

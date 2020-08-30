@@ -1,0 +1,19 @@
+namespace: jenkins
+configMapGenerator:
+- files:
+  - jenkins.yaml
+  name: jenkins-as-code
+- files:
+  - ./jobs/hello-world.xml
+  name: job-hello-world
+generatorOptions:
+  disableNameSuffixHash: true
+
+resources:
+- jenkins-service.yaml
+- jenkins-de.yaml
+- jenkins-crb.yaml
+- jenkins-cr.yaml
+- jenkins-sa.yaml
+- jenkins-role.yaml
+- jenkins-pvc.yaml

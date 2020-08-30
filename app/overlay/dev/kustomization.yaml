@@ -1,0 +1,6 @@
+namespace: dev-application
+bases:
+- ../../base
+namePrefix: dev-
+patchesStrategicMerge:
+- app-svc.yaml

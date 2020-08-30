@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      serviceAccountName: jenkins
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: kubectlproxy
+        image: bitnami/kubectl:1.17.11
+        command: ["/bin/sh", "-ec", "kubectl proxy --port 8090"]
+      - name: jenkins
+        image: jenkins-docker:1.0
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh","-c"]
+        args:
+        - mkdir -p /var/jenkins_home/jobs/hello-world;
+          touch /var/jenkins_home/jobs/hello-world/config.xml;
+          cp /tmp/config.xml /var/jenkins_home/jobs/hello-world/config.xml;
+          tini -s -- /usr/local/bin/jenkins.sh;
+        ports:
+        - containerPort: 8080
+        - containerPort: 50000
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 8080
+          initialDelaySeconds: 300
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 2
+          failureThreshold: 5
+        volumeMounts:
+        - mountPath: /var/jenkins_home
+          name: jenkins-home
+        - mountPath: /var/run/docker.sock
+          name: dockersock   
+        - mountPath: /var/jenkins_home/jenkins.yaml
+          subPath: jenkins.yaml
+          name: jcasc   
+        - mountPath: /tmp/config.xml
+          subPath: config.xml
+          name: job-hello-world         
+        # resources:
+        #   limits:
+        #     cpu: 800m
+        #     memory: 3Gi
+        #   requests:
+        #     cpu: 100m
+        #     memory: 3Gi
+      volumes:
+      - name: jenkins-home
+        persistentVolumeClaim:
+          claimName: pvc-jenkins-home
+      - name: dockersock
+        hostPath:
+          path: /var/run/docker.sock
+      - name: jcasc
+        configMap:
+          name: jenkins-as-code
+          items:
+            - key: jenkins.yaml
+              path: jenkins.yaml
+      - name: job-hello-world
+        configMap:
+          name: job-hello-world
+
+          items:
+            - key: hello-world.xml
+              path: config.xml
