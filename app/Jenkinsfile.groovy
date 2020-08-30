@@ -3,11 +3,11 @@ pipeline {
     stages {
         stage('Building image') {
             steps {
-                git branch: 'work1', url: 'https://github.com/renato-nmoraes/kubernetes-cluster.git'
+                git branch: '${GIT_BRANCH}', url: '${GIT_URL}'
                 dir('app'){
                     sh "ls -lar"
                     script{
-                        fullDockerImageName = "hello-world" + ":" + "1.0"
+                        fullDockerImageName = "${IMAGE_NAME}" + ":" + "${IMAGE_TAG}"
                         dockerImage = docker.build fullDockerImageName
                     }
                 }
@@ -15,9 +15,9 @@ pipeline {
         } 
         stage('List pods') {
             steps{
-                dir('app/base'){
+                dir('app/overlay/${DEPLOY_ENV}'){
                     withKubeConfig([credentialsId: '${CREDENTIALS}',
-                            serverUrl: 'http://localhost:8090/'
+                            serverUrl: '${K8S_APISERVER}'
                             ]) {
                         sh 'ls -lar'
                         sh 'kubectl apply -k .'

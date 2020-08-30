@@ -20,7 +20,7 @@ spec:
         image: bitnami/kubectl:1.17.11
         command: ["/bin/sh", "-ec", "kubectl proxy --port 8090"]
       - name: jenkins
-        image: jenkins-docker:1.0
+        image: jenkins-docker:2.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080

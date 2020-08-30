@@ -1,6 +1,6 @@
 namespace: application
 commonLabels:
-  env: dev
+  env: prd
 bases:
 - ../../base
 patchesStrategicMerge:
