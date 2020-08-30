@@ -1,7 +1,6 @@
 namespace: application
-commonLabels:
-  env: dev
 bases:
 - ../../base
+namePrefix: dev
 patchesStrategicMerge:
 - app-svc.yaml

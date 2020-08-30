@@ -13,9 +13,9 @@ pipeline {
                 }
             }
         } 
-        stage('List pods') {
+        stage('Deploy Application') {
             steps{
-                dir('app/overlay/${DEPLOY_ENV}'){
+                dir('app/overlay/'+DEPLOY_ENV){
                     withKubeConfig([credentialsId: '${CREDENTIALS}',
                             serverUrl: '${K8S_APISERVER}'
                             ]) {

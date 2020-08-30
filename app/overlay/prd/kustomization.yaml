@@ -1,7 +1,6 @@
 namespace: application
-commonLabels:
-  env: prd
 bases:
 - ../../base
+namePrefix: prd
 patchesStrategicMerge:
 - app-svc.yaml

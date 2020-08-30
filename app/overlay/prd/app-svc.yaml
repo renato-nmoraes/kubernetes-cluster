@@ -6,5 +6,5 @@ spec:
   $setElementOrder/ports:
   - port: 80
   ports:
-  - nodePort: 40003
+  - nodePort: 31003
     port: 80
