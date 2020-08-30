@@ -1,0 +1,120 @@
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+        - string:
+            id: "k8sCredentials"
+            scope: GLOBAL
+            secret: "{AQAAABAAAAOQOJmZ3I2mQbevxOHc2YekMGE+rvIE64G7MQzQd3B/WEoY5xy5+kS5+2jHKJHsjJtnh8wLGZP/JXVRcNTpAPHLNDWrOYYgMSO4rI2XgKGbLCZqfHzTfSk0piJxMD/tNjaVaIyoFMrPAabt8QZXxnndAnjIhDYeA+lecxrTLqIHOktSBsu+IHAFcfLRDD2H66xzVUmfHlQLSJeY+gvtzJ8IRGxryMRTdXNj54q48N3GNokxVc0QoeWiWSLRAfyIn2hdFYsxZic80N47LMjiRpcKhoreTR/lmtiwNZqWVujCAqqn+YOxU/xBQTWAAqfPh735bS2nMl17guMY159gcn+PmsgGILd8HRevDRz1kAzVrl9DizwcNO3BcWZGIWooa3qealtK3DDCxS8aDXepVP2B7N2APzkszcmcgfk3h7Q3oCnOG1cvb41PjI3CUFfr9MOj0l6xQ4Ycaq9IiXqS/9kk0sIHDV3rWHHAaAPAMEsX+LI2YDf13rGx1mi+Zui/lhxRA1VGF2an8tua4wpAKqZJhsZrrK3B0y1gUStRD9tXnPi/TOo/Fbc1QOgKGh3kuarTiE4j/mq3XQbKZ6hvoIWs4+Ti4g0VnwFdVl89ktvA9UuAZuz4bFIqwHlsoN69h05BGW69fr6i2j70S/ZTBo6q65mutFr4vBipYh2rem7CiUpIQnOjFn7auoSxB3Mebg74lJ6x1YOwB/uMInatKAatxgT5ZuRrNHyvAV/6b1Q5TMOIJ3hZcypb78CGqtob7f1YeIYVmZt9KvyM/JGQtSMc+pC/kUFwssO9nVjBCEhgjfgu65DaR4+e4yRDsWKzleImUYyLA+LNah7gLOQEpAZHua6wlmiLXZ20NLGbx0I2lDm8KmO+Mj6dge2ooLJbnBM169x8uJXfkumxbamckyKD9hU+6By4RLqKOBP/C/CbkVNujiBGVUU1UpIVE/4jRedtB/skRiPkcQFrKTTd1PFARTzOMhptna0bStFT+L06JBLK6NZy4dazlNm7J0KdBm6MJ0YkAcdmUL4jO2dPzBXjfIG3UozXibJgkp1SkPWUiXSVyIfSY289oVx7+yEiqtjPtZEWajzzIZcje99xga9jbm24dnBQjn6Q2SNJzvozOuKFTW71Zk93jQTKHXYVdaL+hU2GX0+nVjR3YSPdCU/3luYIkeY11Uz99/hSczH+s4pumGb9zLf5cv8WiaoOMXN27ZGpiE7b9vIpbV2VzN0O/A==}"
+
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
+  agentProtocols:
+    - "JNLP4-connect"
+    - "Ping"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  labelAtoms:
+    - name: "master"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 2
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+        - id: "admin"
+          name: "admin"
+          password: "admin"
+          properties:
+            - "apiToken"
+            - "mailer"
+  slaveAgentPort: 50000
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  sSHD:
+    port: -1
+  scriptApproval:
+    approvedSignatures:
+    - "staticMethod java.lang.System setProperty java.lang.String java.lang.String"
+unclassified:
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  buildStepOperation:
+    enabled: false
+  defaultFolderConfiguration:
+    healthMetrics:
+    - worstChildHealthMetric:
+        recursive: true
+  email-ext:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: |-
+      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+      Check console output at $BUILD_URL to view the results.
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    defaultTriggerIds:
+    - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: -1
+    precedenceBulk: false
+    watchingEnabled: false
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "http://192.168.99.100:30001/github-webhook/"
+  gitSCM:
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "http://192.168.99.100:30001/"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  pollSCM:
+    pollingThreadCount: 10
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+tool:
+  git:
+    installations:
+    - home: "git"
+      name: "Default"

@@ -18,4 +18,7 @@ RUN cat /etc/yum.repos.d/kubernetes.repo
 RUN yum install -y docker-ce-cli-18.09.1
 RUN yum install -y kubectl
 
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+
 USER jenkins

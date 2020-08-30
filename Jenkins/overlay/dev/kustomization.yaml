@@ -1,6 +1,0 @@
-namespace: jenkins
-bases:
-- ../../base
-patchesStrategicMerge:
-- jenkins-service.yaml
-- jenkins-de.yaml
