@@ -1,23 +1,28 @@
 # kubernetes-cluster
 Minikube Kubernetes cluster with 2 environments running NGINX application deployed by Jenkins.
 
-## Requisites
+## Installation
+This documentation describes how to setup and deploy a NGINX "Hello World" web page deployed by Jenkins.
 
-- A running minikube cluster with kubectl
-- Linux shell to run .sh script
+The following steps are necessary and will be described in this document:
 
-## Pre-installation
+```mermaid
+graph LR
+A[Install Minikube] --> B[Install Kubectl]
+B --> C[Clone repository]
+C --> D[Deploy Jenkins with jenkins-setup.sh]
+D --> E[Deploy application with Jenkins]
+```
+
+### Pre-installation
+Before deploying the application, some configuration is needed. You will need to:
+
 1. Install Minikube according to your Operational System - Follow the instructions [here](https://kubernetes.io/docs/tasks/tools/install-minikube/)
 2. Start Minikube with `minikube start --driver=<DRIVE_NAME>`
 3. Run `minikube status` to check if Minikube is running correctly.
 4. Install Kubectl according to your Operational System - Follow the instructions [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 5. Run `kubectl cluster-info` to check if Kubectl is working and connected to Minikube. More information [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/#verifying-kubectl-configuration)
 5. Clone this repository
-
-## Installation
-To have a running application, it is necessary:
-1. Deploy and Setup Jenkins
-2. Deploy "Hello World" application through Jenkins
 
 ### Jenkins Setup
 The "Hello World" application is built and deployed through Jenkins. Everything in Jenkins (besides Kubernetes API Server credentials) is configured as code.
@@ -46,7 +51,7 @@ The `jenkins-setup.sh` script prints the same credentials in two versions: `base
 To apply the K8s API Server credentials to Jenkins, follow the steps:
 
 1. Log in to Jenkins
-2. Go to *Manage Jenkins > Manage Credentials > Credentials > Jenkins > Global credentials (unrestricted)* and edit ***k8sCredentials***. The URL should look like this: ``http://<MINIKUBE URL>:30001/credentials/store/system/domain/_/credential/k8sCredentials/update``
+2. Go to *Manage Jenkins > Manage Credentials > Credentials > Jenkins > Global credentials (unrestricted)* and edit ***k8sCredentials***. Check if the URL should look like this: ``http://<MINIKUBE URL>:30001/credentials/store/system/domain/_/credential/k8sCredentials/update``
 3. Click at the *Update* icon at the right
 4. Click in Change Password 
 5. Paste the **decoded** credentials provided before and save
