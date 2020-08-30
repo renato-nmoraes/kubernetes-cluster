@@ -6,7 +6,7 @@ Kubernetes cluster with 2 environments running NGINX application
 - A running minikube cluster with kubectl
 - Linux shell to run .sh script
 
-## Pre installation
+## Pre-installation
 1. Install Minikube according to your SO - Follow the instructions [here](https://kubernetes.io/docs/tasks/tools/install-minikube/)
 2. Start Minikube with `minikube start --driver=<DRIVE_NAME>`
 3. Check if Minikube is running with  `minikube status`
@@ -19,7 +19,7 @@ Kubernetes cluster with 2 environments running NGINX application
 The "Hello World" application is built and deployed through Jenkins. Everything in Jenkins (besides Kubernetes API Server credentials) is configured as code.
 
 ### Build & Deploy
-Run `Jenkins/jenkins-setup.sh` script and wait it to complete. It is recommended to run it on a Linux terminal.
+Run `Jenkins/jenkins-setup.sh` script and wait for it to complete. It is recommended to run it on a Linux terminal.
 Kubernetes API Server Credentials will be printed at the end.
 
 #### Jenkins access
@@ -34,12 +34,12 @@ password: admin
 ```
 
 #### Configuring Kubernetes API Server Credentials
-This credentials allows Jenkins to comunicate with the Kubernetes cluster and deploy artifacts.
+This credential allows Jenkins to communicate with the Kubernetes cluster and deploy artifacts.
 
 The `jenkins-setup.sh` script prints the same credentials in two versions: `base 64 encoded` and `decoded`. Only the decoded will be used.
 > The encoded version of the credentials is only necessary to manually decode it in case of problems with the decoded version.
 
-To apply the K8s Api Server credentials to Jenkins, follow the steps:
+To apply the K8s API Server credentials to Jenkins, follow the steps:
 
 1. Log in to Jenkins
 2. Go to *Manage Jenkins > Manage Credentials > Credentials > Jenkins > Global credentials (unrestricted)* and edit ***k8sCredentials***. The URL should look like this: ``http://<MINIKUBE URL>:30001/credentials/store/system/domain/_/credential/k8sCredentials/update``
@@ -65,11 +65,11 @@ Production environment application is deployed at `http://<MINIKUBE URL>:31003`
 ## Technical Debts
 This project was developed in 2 days due to deadline limitations. Given this, some features and configurations were not included.
 
-- Jenkins was not configured to change the deployment yaml file. If a new image version is released, the yaml file must be changed manually.
-- In order to allow Jenkins to communicate with Kubernetes API, a generic CluterRoleBinding with admin powers was created. This is not recommended to use in production and the permissions must be exactly what Jenkins need.
+- Jenkins was not configured to change the deployment YAML file. If a new image version is released, the YAML file must be changed manually.
+- To allow Jenkins to communicate with Kubernetes API, a generic CluterRoleBinding with admin powers was created. This is not recommended to use in production and the permissions must be exactly what Jenkins needs.
 - All images that are built locally are not being pushed to any repository.
 - No resource request or limitation was calculated for any of the kubernetes deployments. This configuration is not set.
-- In order to start Jenkins with the pipeline and variables already configured, the original docker image entrypoint was overwritten in the jenkins deployment. This does not affect anything, but it is understood this is not best practice.
-- All application are being exposed through nodePort. An ingress (e.g. traefik) should be used to expose the application.
+- To start Jenkins with the pipeline and variables already configured, the original docker image entrypoint was overwritten in the Jenkins deployment file. This does not affect anything, but it is understood this is not best practice.
+- All applications are being exposed through nodePort. An ingress (e.g. traefik) should be used to expose the application.
 - No further configuration was made to Minikube or Kubernetes Cluster.
 - The "multiple environment" solution was simply deploying different pods since it's only 1 VM and 1 cluster.	
