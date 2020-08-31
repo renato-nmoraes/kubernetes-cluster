@@ -13,11 +13,11 @@ The following steps are necessary and will be described in this document:
 ### Pre-installation
 Before deploying the application, some configuration is needed. You will need to:
 
-1. Install Minikube according to your Operational System - Follow the instructions [here](https://kubernetes.io/docs/tasks/tools/install-minikube/)
-2. Start Minikube with `minikube start --driver=<DRIVE_NAME>`
+1. Install Minikube according to your Operational System - Follow the instructions [here [1]](https://kubernetes.io/docs/tasks/tools/install-minikube/)
+2. Run `minikube start --driver=<DRIVE_NAME>` to start Minikube
 3. Run `minikube status` to check if Minikube is running correctly.
-4. Install Kubectl according to your Operational System - Follow the instructions [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
-5. Run `kubectl cluster-info` to check if Kubectl is working and connected to Minikube. More information [here](https://kubernetes.io/docs/tasks/tools/install-kubectl/#verifying-kubectl-configuration)
+4. Install Kubectl according to your Operational System - Follow the instructions [here [2]](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+5. Run `kubectl cluster-info` to check if Kubectl is working and connected to Minikube. More information [here [3]](https://kubernetes.io/docs/tasks/tools/install-kubectl/#verifying-kubectl-configuration)
 5. Clone this repository
 
 ### Jenkins Setup
@@ -30,7 +30,7 @@ Kubernetes API Server Credentials will be printed at the end.
 #### Jenkins access
 After deploying, you can access Jenkins UI at `http://<MINIKUBE URL>:30001`.
 
-To discover your minikube ip you can run `minikube ip`.
+Run `minikube ip` to discover your Minikube IP address.
 
 The default Jenkins credentials are:
 ```
@@ -54,7 +54,6 @@ To apply the K8s API Server credentials to Jenkins, follow the steps:
 
 ### Application
 After the credentials configuration, Jenkins is ready to build and deploy the application.
-The application is a nginx image running a Hello World page.
 
 #### Build & Deploy
 In the Jenkins page, select the **hello-world** pipeline job.
